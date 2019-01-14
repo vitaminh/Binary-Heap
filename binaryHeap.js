@@ -1,4 +1,4 @@
-// comparator functions
+// comparator functions allow for implementation of max heap OR min heap
 const maxHeapComparisonFunc = (a, b) => a > b;
 const minHeapComparisonFunc = (a, b) => a < b;
 
@@ -13,12 +13,12 @@ class Heap {
   buildHeap(array) {
     const start = Math.floor((array.length - 2) / 2);
     for (let i = start; i >= 0; i--) {
-      this.siftDown(i, array);
+      this.percolateDown(i, array);
     }
     return array;
   }
 
-  siftDown(i, heap) {
+  percolateDown(i, heap) {
     let leftChildIndex = 2 * i + 1;
     while (leftChildIndex < heap.length) {
       const rightChildIndex = 2 * i + 2 < heap.length ? 2 * i + 2 : null;
@@ -37,7 +37,7 @@ class Heap {
     }
   }
 
-  siftUp(i, heap) {
+  percolateUp(i, heap) {
     let current = heap[i];
     while (
       i > 0 &&
@@ -57,14 +57,14 @@ class Heap {
   remove() {
     this.swap(0, this.heap.length - 1, this.heap);
     const result = this.heap.pop();
-    this.siftDown(0, this.heap);
+    this.percolateDown(0, this.heap);
     this.length--;
     return result;
   }
 
   insert(value) {
     this.heap.push(value);
-    this.siftUp(this.heap.length - 1, this.heap);
+    this.percolateUp(this.heap.length - 1, this.heap);
     this.length++;
   }
 
