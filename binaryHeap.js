@@ -22,12 +22,12 @@ class Heap {
     const start = Math.floor((array.length - 2) / 2);
     // percolate that node down, then work your way back up the array
     for (let i = start; i >= 0; i--) {
-      this.siftDown(i, array);
+      this.percolateDown(i, array);
     }
     return array;
   }
 
-  siftDown(i, heap) {
+  percolateDown(i, heap) {
     let leftChildIndex = 2 * i + 1;
     // while the index of the left child falls within the bounds of the heap
     while (leftChildIndex < heap.length) {
@@ -50,8 +50,8 @@ class Heap {
     }
   }
 
-  // similar to sift down, but here we only compare the child and its parent
-  siftUp(i, heap) {
+  // similar to percolate down, but here we only compare the child and its parent
+  percolateUp(i, heap) {
     let current = heap[i];
     while (
       i > 0 &&
@@ -68,14 +68,13 @@ class Heap {
     return this.heap.length > 0 ? this.heap[0] : null;
   }
 
-
   remove() {
     // swap the first element with the last
     this.swap(0, this.heap.length - 1, this.heap);
     // remove the new last element from the heap
     const result = this.heap.pop();
-    // sift down the new first element until it reaches its proper place
-    this.siftDown(0, this.heap);
+    // percolate down the new first element until it reaches its proper place
+    this.percolateDown(0, this.heap);
     this.length--;
     return result;
   }
@@ -83,8 +82,8 @@ class Heap {
   insert(value) {
     // add the new value to the end of the heap
     this.heap.push(value);
-    // sift up until it reaches its proper location
-    this.siftUp(this.heap.length - 1, this.heap);
+    // percolate up until it reaches its proper location
+    this.percolateUp(this.heap.length - 1, this.heap);
     this.length++;
   }
 
